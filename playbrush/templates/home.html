@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Django Data process</h1>
+<ul>
+  <h2>Resoults</h2>
+  {% for files in object_list %}
+  <a href="/files/{{files.pk}}">{{files.pk}} resoults</a>
+  <br />
+  {% endfor %}
+  <br />
+  <br />
+  <br />
+  <a href="/post"><button type="button" class="btn btn-primary">New Upload</button></a>
+</ul>
+
+{% endblock %}

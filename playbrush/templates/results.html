@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Task 1</h1>
+{{t1 |safe }}
+<h1>Task 2</h1>
+<h3>1. How many valid brush sessions were observed in total?</h3>
+<h5>{{t21 |safe }}</h5>
+<h3>2. What is the average number of brushing sessions per user in that group?</h3>
+{{t22 |safe }}
+<h3>3. What is the average brushing duration per user in that group?</h3>
+{{t23 |safe }}
+<h3>4. Which group performed the best? Rank the groups in terms of performance.</h3>
+{{t24 |safe }} {% endblock %}
