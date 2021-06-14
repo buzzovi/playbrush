@@ -19,7 +19,17 @@ I created a File model to store the uploaded csv files.
 
 # To Run the project
 
+### Clone git repo.
+
+```
+git clone https://github.com/buzzovi/playbrush.git
+```
+
 ### Please navigate to the backend directory.
+
+```
+cd playbrush
+```
 
 ### Installing virtualenv
 
