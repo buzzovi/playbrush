@@ -43,27 +43,31 @@ class DataProc:
         task11 = task11.reset_index()
         task11["BrushCount"] = np.where(task11["TimestampUTC"] > 0, 1, 0)
 
+        # Total brush session
         task12 = task11.pivot(index=["PBID", "group", "Weekdays"], columns=[
             "DayType"], values="BrushCount").fillna(0)
         task12["DayBrush"] = task12["Evening"] + task12["Morning"]
         task12["TwiceBrush"] = np.where(task12["DayBrush"] == 2, 1, 0)
-
-        # task12 = task12.drop(columns=['BrushCount', 'TotalTime'], level=0)
-        # task12 = task12.drop(index="DayType", level=0)
         task12 = task12.reset_index()
 
+        # Weekdays and brush session
         task13 = task12.groupby(["PBID", "group", "Weekdays"]).agg({"DayBrush": "sum", "TwiceBrush": "sum"})
 
+        # 3 part with same key PBID, group
+        # Weekdays columns
         task14 = task13.reset_index().pivot(index=["PBID", "group"], columns=["Weekdays"], values="DayBrush").fillna(0)
         task14 = task14.groupby(["PBID", "group"]).sum()
 
+        # Brush session columns
         task15 = task13.groupby(["PBID", "group"]).agg({"DayBrush": "sum", "TwiceBrush": "sum"})
 
+        # TotalTime columns
         task16 = task11.pivot(index=["PBID", "group", "Weekdays"], columns=[
             "DayType"], values="TotalTime").fillna(0)
         task16["DayTotalTime"] = task16["Evening"] + task16["Morning"]
         task16 = task16.groupby(["PBID", "group"]).agg({"DayTotalTime": "sum"})
 
+        # Final table put together
         task1all = pd.merge(task14, task16, how="left", on=['PBID', 'group'])
         task1all = pd.merge(task1all, task15, how="left", on=['PBID', 'group'])
         task1all["AvgBrushTime"] = task1all["DayTotalTime"] / task1all["DayBrush"]

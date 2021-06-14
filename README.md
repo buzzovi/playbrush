@@ -8,8 +8,6 @@
 playbrush
 ```
 
-### Models Create
-
 ### For database I used SQLite DB
 
 I created a File model to store the uploaded csv files.
@@ -73,6 +71,10 @@ python -m pip install --upgrade pip
 ```
 python manage.py runserver
 ```
+
+### Main processing code can be found
+
+- playbrush/data_process.py
 
 ### Usefull links:
 
